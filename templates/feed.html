@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<title>Feeds</title>
+</head>
+<body style="background:#cfcfc7c9">
+  {% with messages = get_flashed_messages(with_categories=true)%}
+  {% if messages %}
+  {%for cat,message in messages%}
+  
+  {%if cat=='success' %}
+  <div class="alert alert-success" role="alert">
+    {{message}} <a href="{{url_for('homepage')}}" class="alert-link">click here</a> to login.
+  </div>
+  {%else%}
+  <div class="alert alert-warning" role="alert">
+    {{message}}
+  </div>
+  {%endif%} 
+  {%endfor%}
+  {%endif%}
+  {%endwith%}
+  <div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v15.0" nonce="bEGfZjnF"></script>
+
+
+<nav class="navbar navbar-light bg-light">
+  <a class="navbar-brand" href="/feed" style="float:left">
+    <img src="https://iili.io/HoMu2xj.md.jpg" width="30" height="30" class="d-inline-block align-top" alt="">
+    BlogLite
+  </a>
+  <a class="navbar-brand" href="/self/{{user_name}}">Hello {{first_name}}</a>
+  <form class="form-inline my-2 my-lg-0" >
+    <input class="form-control mr-sm-2" type="search" placeholder="Search" id="searchtext" aria-label="Search">
+    <button  class="btn btn-outline-primary my-2 my-sm-0" type="button" onclick="myfunc2()">Search</button>
+  </form>
+  <a class="nav-item nav-link" href="/self/{{user_name}}">Profile</a>
+      <a class="nav-item nav-link" href="{{url_for('logout')}}">Logout</a>
+  <a class="navbar-brand" href="/need_help" style="float:right">Need Help?</a>
+  
+
+</nav>
+<script>
+  function myfunc2(){
+      var p=document.getElementById("searchtext").value;
+          if (p) {
+          
+
+      window.location.href = "/search/"+p;
+  }}
+</script>
+
+  <div style="border-radius:15px;margin: 8px;padding:10px;float:left;height:100% ;width:15%; background-color: whitesmoke;">
+    <div style="padding:15px;border-radius:20px;margin:2px;background: rgb(218, 218, 218);" text-align="center">
+      <p style="font-size:20px;text-align:center"><b><u>Groups</u></b></p>
+      <i> 
+      <li> Group 1 <br></li>
+      <li> Group 2 <br></li>
+      <li> Group 3 <br></li>
+      <li> Group 4 <br></li>
+      <li> Group 5 <br></li>
+       </i>
+    </div><br>
+    <div style="padding:5px;border-radius:15px;margin:2px;background: rgb(218, 218, 218);" text-align="center">
+      <p style="font-size:20px;text-align:center"><b><u>Following</u></b></p>
+      <table>
+        {%for i in users2%}
+        <li><a href="/people/{{i.username}}">{{i.first_name}} &nbsp;{{i.last_name}}</a></li>
+        {%endfor%}
+      </table>
+    </div>
+  </div>
+  <div   <div style=" border-radius:5px;margin: 8px;overflow-y: scroll; float:left ;height:100vh;width:60%; background:#eee;"whitesmoke;">
+    <section style="z-index:1; background-color: #eee;">
+      {%for i in blog_posts%}
+
+      <div class="container my-5 py-5" style="background-color:#eee" >
+        <div class="row d-flex justify-content-left" style=" padding-left: 110px;width:1155px">
+          <div class="col-md-12 col-lg-10 col-xl-8" >
+            <div class="card">
+              <div class="card-body">
+                <div class="d-flex flex-start align-items-center">
+                  <div>
+                    <h4 class="fw-bold text-primary mb-1" style="text-align:center ">{{i.title}}</h4>
+                    <p class="text-muted small mb-0" style="background-color:#eee">
+                      {%for key in images_feed%}
+                      {%if i.blogid==key %}
+                      {%set a=i.blogid%}<a href="/image/{{i.blogid}}">
+                      <img style="display:inline; width:628px;height:450px;" 
+          src="data:image/jpeg;charset=utf-8;base64,{{ images_feed[a] }}" alt="Posts"></a>
+              
+                        Shared publicly - {{i.time[8:10]}}&nbsp;{{months[i.time[5:7]]}} 2022
+                     
+                    </p>
+                  </div>
+                </div>
+                {%for l in all_users%}
+                {%if l.username==i.username%}<a href="/people/{{i.username}}">
+                <img class="rounded-circle shadow-1-strong me-3" style="z-index:1 ;width:50px;height:45px;" 
+                src="data:image/jpeg;charset=utf-8;base64,{{dp[l.username]}}" alt="Profile-Picture">
+                {{l.first_name}}&nbsp;{{l.last_name}}</a>
+                {%endif%}{%endfor%}
+                <!-- <img class="rounded-circle shadow-1-strong me-3"
+                src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp" alt="avatar" width="40"
+                height="40" /> -->
+                <p class="mt-3 mb-4 pb-2">{{i.caption}}
+                    </p>
+
+                <div class="small d-flex justify-content-start"><h6 style="float:left"><a href="/liked_by/{{i.blogid}}">{{count_likes[i.blogid]}} Like(s)</a></h6>&nbsp; <a href="/post/like_{{i.blogid}}">
+                  <button onclick="" value="Like" class="btn btn-primary"><i class="fa fa-thumbs-up"><font color="#fff">Like</font></font></a> </button>
+                    
+                  <button onclick="" class="btn btn-primary"><i class="fa fa-thumbs-up"> <a href="/post/unlike_{{i.blogid}}"><font color="#fff">Unlike</font></a></i> </button>
+                  </i>
+      <script>$('exampleModal').on('shown.bs.modal', function () {
+       
+        $('abc').trigger('focus');
+        
+      })</script>
+                </div>
+              </div>
+              <!-- <script>
+                $.ajax({
+                  type: "POST",
+                  url: "{{ url_for('feed') }}", 
+                  contentType: "application/json",
+                  data: JSON.stringify({blogid: "{{i.blogid}}" } ),
+                  dataType: "json",
+                  success: function(response) {
+                      console.log(response);
+                  },
+                  error: function(err) {
+                      console.log(err);
+                  }
+              });
+              </script> -->
+              <table border="0px">
+                {%for q in posts_all%}
+                {%if i.blogid==q.post_id %}
+                {%if q.comment%}
+                <!-- <tr>
+                    <td style="color:rgb(192, 103, 2)"><li></li></td>
+                   
+                </tr> -->
+                <script>
+                  
+                    // Call addInput() function on button click
+                    function addInput(){
+                        let input = document.createElement('input');
+                        input.placeholder = 'Type something';
+                        container.appendChild(input);
+                          }
+                          
+                </script>
+
+
+                <tr >
+                  <td style="color:rgb(192, 103, 2); float:left;"><li>{{q.comment}}</li></td>
+                    {%if q.author==user_name %}
+                  <td style="float:right"><a href="/edit_comment1/{{q.pid}}"><button type="button" value="Edit" style="text-align: center;display: inline-block;height: 40px;width:70px" class="btn btn-primary" data-target="#">Edit</button></a> <a href="/delete_comment/{{q.pid}}"><button type="button" value="Delete" style="text-align: center;display: inline-block;height: 40px;width:70px" class="btn btn-primary" data-target="#">Delete</button> </a></td>
+                  {%else%}{%for ii in all_users%}{%if ii.username==q.author%}
+                  <td style="float:right">By:&nbsp;&nbsp;<a href="/people/{{ii.username}}"><img class="rounded-circle shadow-1-strong me-3" style="z-index:1 ;width:20px;height:25px;" 
+                    src="data:image/jpeg;charset=utf-8;base64,{{dp[ii.username]}}" alt="Profile-Picture">{{ii.first_name}}&nbsp;{{ii.last_name}}</a></td>{%endif%}{%endfor%}
+                  {%endif%}
+                                                  
+                  <!-- <td style="float:right"><button type="button" id="abc" dataid="" value="Edit" style="height: 40px;width:60px" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                    Edit 
+                  </button> -->
+                
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Edit Comment</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <br>
+                        <form method="POST" >
+                          <input type="hidden" name="hiddenID" id="hiddenID" />
+                          <label for="texti">Edit:</label>
+                          <input type="text" id="texti" value="{{q.comment}}" name="texti">
+                          <button type="button" onclick="funckk()" id="savec" class="btn btn-primary">Save changes</button></form>
+
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      </div>
+                    </div>
+                  </div><br></td></tr><tr></tr>
+                </div><script type="text/javascript">
+                  // document.getElementById("myButton").onclick =
+                   function funckk() {
+                      var val=document.getElementById("texti").value
+                      var pid = document.getElementById('abc');
+                      console.log(pid)
+                      var p_id = pid.getAttribute("dataid");
+                      console.log(p_id)
+                      location.href = "/edit_comment/"+p_id+"~"+val;
+                  };
+              </script>
+               {%endif%}
+                
+                {%endif%}{%endfor%}
+              </table>
+              <div class="card-footer py-3 border-0" style="background-color: #f8f9fa;">
+                <div class="d-flex flex-start w-100">
+                  <form method="POST" action="/comment/{{i.blogid}}" >
+                  <div class="form-outline w-100">
+                    <textarea class="form-control" id="textAreaExample" style="width:500px" name="comment_area" rows="4"
+                      style="background: #fff;"></textarea>
+                    <label class="form-label" for="textAreaExample">Write comment</label>
+                  </div>
+                </div>
+                <div class="float-end mt-2 pt-1">
+                  <button type="submit" name="btn" class="btn btn-primary btn-sm">Post comment</button>
+                  <button type="button" onclick="cancel_button()" class="btn btn-outline-primary btn-sm">Cancel</button>
+                </div></form>
+                
+                
+                
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+   
+    {%endif%}{%endfor%}{%endfor%}
+  </div>
+  
+    <div style="border-radius:15px;margin: 8px;float:left ;height:100%;width:21%; background-color: rgb(227, 242, 255);">
+      
+      <div style="border-radius:15px ;padding:10px;width: 98%; top:50%;left:50%;margin:auto; "><p></p>
+        <img style="display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 97%;border-radius:20%;" 
+          src="data:image/jpeg;charset=utf-8;base64,{{ js }}" alt="Profile-Picture">
+          <br>
+        <p style="text-align:center">
+        <b>{{first_name}}&nbsp {{last_name}}</b> </p>
+        <p style="text-align:center"> <a href="{{url_for('followers')}}">Followers: </a>{{nof}} &nbsp;&nbsp;&nbsp;
+        <a href="{{url_for('following')}}">Following:</a> {{nofi}}</p>
+      </div>
+      <div style="padding:15px;"><p style="text-align: center;"><b>------------------------------------</b></p>
+      <p style="font-size:20px;text-align: center;"><b><u>Latest Activities</u></b></p>
+      <i><li>Activity 1</li>
+      <li>Activity 2</li>
+      <li>Activity 3</li>
+      <li>Activity 4</li>
+      <li>Activity 5</li></p>
+        </div></i>
+    </div>
+    
+</body>
+</html>

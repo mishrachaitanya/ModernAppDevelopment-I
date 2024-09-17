@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liked by</title>
+</head>
+<body>
+    <h2>LIKED BY:</h2>
+    <table>
+        {%for i in likers%}{%if current_user==i.username%}
+        <tr><td><li><a href="/self/{{current_user}}">You</li></a></td></tr>
+            {%else%}
+            <tr><td><li><a href="/people/{{i.username}}">{{i.first_name}}&nbsp;{{i.last_name}}</li></a></td></tr>
+            {%endif%}{%endfor%}
+    </table><br>
+    <a href="/feed">Go back!</a>
+</body>
+</html>

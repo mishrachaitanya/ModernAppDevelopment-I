@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>Document</title>
+</head>
+<body style="height:100vh;background:linear-gradient(45deg, #e0d956,#ec6fb2)">
+    <nav class="navbar sticky-top navbar-light bg-light">
+        <a class="navbar-brand" href="/feed" style="float:left">
+            <img src="https://iili.io/HoMu2xj.md.jpg" width="30" height="30" class="d-inline-block align-top" alt="">
+                BlogLite
+        </a>
+        <a class="navbar-brand" href="/self/{{usern}}">Hello {{user}}</a>
+
+        <nav class="navbar navbar-light bg-light">
+            
+            <!-- <a class="navbar-brand" href="" style="float:right">Logout</a> -->
+            <a class="nav-item nav-link" href="/feed">Homepage</a>
+            <a class="nav-item nav-link" href="/logout">Logout</a>
+            
+        </nav>
+
+      </nav>
+      <h2>
+        People You Follow..
+      </h2>
+      <table>
+        {%for first_name,last_name,username in dictf %}
+        <tr>
+            <td><a href="/people/{{username}}"><u>{{first_name}}&nbsp;{{last_name}}</u></a>:&nbsp;&nbsp;&nbsp;</td><td><a href='/unfollow_{{username}}'>Unfollow</a></td>
+        </tr>
+        {%endfor%}
+      </table>
+</body>
+</html>

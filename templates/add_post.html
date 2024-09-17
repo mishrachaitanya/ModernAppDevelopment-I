@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>Add a blog</title>
+</head>
+<body style="height:100vh;background:linear-gradient(45deg, #e0d956,#ec6fb2)">
+    <h2 style="float:left">Hello {{user}} </h2> <h2 style="float:right">Search|My Profile|Logout</h2>
+    <br><br><br><br><br><br>
+    
+    <center>
+    <form>
+        <table>
+            <tr><td colspan="2"><h1 align="left" style="border-bottom: 2px solid #4e84ca;
+                ">Add a post/blog</h1></td></tr>
+            <tr>
+            <div class="mb-3" align="center">
+                <td><label for="exampleFormControlInput1" class="form-label">Title</label></td>
+                <td><input type="text" class="form-control" id="exampleFormControlInput1" placeholder="Title">
+            </td>
+                </div></tr>
+            <tr><td>
+            <div class="mb-3" style="float:center">
+                <label for="exampleFormControlTextarea1" class="form-label">Description/Caption</label>
+            </td><td><textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            </div></td></tr>
+            <tr><td><label class="form-label" for="customFile">Select a file</label></td>
+<td><input type="file" class="form-control" id="customFile" /></td></tr>
+    <tr><td colspan=2 style=" background-color: transparent;"><input class="btn btn-primary" type="submit" value="Submit"></button>
+    </td></tr></table></form>
+</center>
+</body>
+</html>

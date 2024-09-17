@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>Document</title>
+</head>
+<body style="height:100vh;background:linear-gradient(45deg, #e0d956,#ec6fb2)">
+    <nav class="navbar sticky-top navbar-light bg-light">
+        <a class="navbar-brand" href="/feed" style="float:left">
+            <img src="https://iili.io/HoMu2xj.md.jpg" width="30" height="30" class="d-inline-block align-top" alt="">
+                BlogLite
+        </a>
+        <a class="navbar-brand" href="/self/{{user}}">Hello {{user}}</a>
+
+        <nav class="navbar navbar-light bg-light">
+            
+            <!-- <a class="navbar-brand" href="" style="float:right">Logout</a> -->
+            <a class="nav-item nav-link" href="/feed">Homepage</a>
+            <a class="nav-item nav-link" href="/logout">Logout</a>
+            
+        </nav>
+
+      </nav>
+      <h2>
+        Search results:
+      </h2>
+      <table><form method="POST">
+        {%if result1%}
+        {%for users in result1 %}
+        
+        <tr>
+            <td><a href="/people/{{users.username}}">{{users.first_name}}&nbsp;{{users.last_name}}</a>&nbsp;</td><td><button type="button" name="follow" class="btn btn-light"><a href='/follow_{{users.username}}'>Follow</a></button>
+                <button type="button" name="unfollow" class="btn btn-light"><a href='/unfollow_{{users.username}}'>Unfollow</a></button>
+            </td>
+        </tr>
+        {%endfor%}
+        {% elif result2%}
+        {%for users in result2 %}
+        <tr>
+            <td><a href="/people/{{users.username}}">{{users.first_name}}&nbsp;{{users.last_name}}</a>&nbsp;</td><td><button type="button" name="follow" class="btn btn-light"><a href='/follow_{{users.username}}'>Follow</a></button>
+                <button type="button" name="unfollow" class="btn btn-light"><a href='/unfollow_{{username}}'>Unfollow</a></button>
+            </td>        
+        </tr>
+        {%endfor%}
+        {%elif result3%}
+        {%for users in result3%}
+        <tr>
+            <td><a href="/people/{{users.username}}">{{users.first_name}}&nbsp;{{users.last_name}}</a>&nbsp;</td><td><button type="button" name="follow" class="btn btn-light"><a href='/follow_{{users.username}}'>Follow</a></button>
+                <button type="button" name="unfollow" class="btn btn-light"><a href='/unfollow_{{username}}'>Unfollow</a></button>
+            </td>        
+        </tr>
+        {%endfor%}
+        {%else%}
+        <tr><td>No User found</td></tr>{%endif%}
+        </form>
+      </table>
+</body>
+</html>
